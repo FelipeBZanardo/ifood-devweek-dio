@@ -1,0 +1,121 @@
+https://github.com/cami-la/configuracao-inicial-ambiente-de-desenvolvimento-java
+
+Operacional
+	Dá suporte para comunicação com a máquina
+
+Linguagem Java:
+	Uma das linguagem mais utilizadas hoje em dia no back-end
+	Pode ser utilizada em diversos positivos.
+	Criada pela SumMicroSystens hoje pertence a Oracle
+	Funciona com o paradigma POO - Programação Orientada a Objetos
+
+IntelliJ:
+	Umas das IDEs mais utlizadas quando se trata de Java
+
+Git: 
+	Ferramenta de versionamento de código
+
+GitHub:
+	Compartilha o arquivo com mais pessoas
+
+Postman:
+	Client API 
+	Faz requisição do Back-End sem precisar do Front-End
+--------------------------------------------------------------------------------------------------
+
+Aula 01 - Conhecendo o domínio da Aplicação
+
+Celular ---> Requisição ---> API ---> Processamento ---> Banco de dados
+	<--- Resposta   	 <--- Resultado		
+
+O front-end faz uma requisição (um pedido) para API.
+A API faz a lógica e manda os dados para o servidor que retorna um resultado para API e uma resposta para o front (celular)
+
+Pensamento Computacional:
+	- como formular o problema: fazer um carrinho de compras
+	- coletar dados
+	- análise de dados
+	- decompor os dados em blocos
+	- identificar padrões
+	- trabalhar com abstração: simplificar
+	- Criar algoritmos: 
+	- Construir modelos e fazer testes
+
+Paradigma de Programação Orientada a Objetos:
+	Modelo de análise, projeto e programação baseado na aproximação entre o mundo real e o mundo virtual, através
+	da criação e interação entre classes, atributos, métodos, objetos, entre outros
+
+	Base da POO: abdtração: utilizar apenas o que há de mais importante para resolução do problema
+	4 pilares da POO: - encapsulamento
+			  - herança
+			  - composição
+			  - polimorfismo
+
+	Classe: é um modelo com as características e informaçãoes principais
+	Objeto: é o que será salvo no banco de dados. Vários objetos podem ser criados a partir de uma classe
+
+Diagrama ER Entidade - Relacionamento:
+
+	Sacola: - private Long id		
+		- private Cliente cliente		<-- F
+		- private List<Itens> ItensSacola	--> A
+		- private double valorTotalSacola
+		- private FormaPagamento FormaPagamento <-- G
+		- private boolean fechada
+	
+   B --> Item:	- private Long id
+		- private Produto produto
+		- private int quantidade
+		- private Sacola sacola		<-- A
+
+   B <-- Produto: - private Long id	
+		 - private String nome
+		 - private double valorUnitario
+		 - private Booleal disponivel
+		 - private Restaurante restaurante   <-- C
+
+   C <-- Restaurante: - private Long id
+		     - private String nome
+		     - private List<Produtos> cardapio
+		     - private Endereco	endereco       <-- D
+
+E/D <-- Endereco:    - private String cep
+		     - private String complemento
+
+  F <-- Cliente:     - private Long id
+		     - private String nome
+		     - private Endereco endereco	<-- E
+	
+  G <--	FormaPagamento: - String Dinheiro
+			- String Maquineta
+
+
+---------------------------------------------------------------------------------------
+Aula 02 - Construindo uma Rest API com Java e Spring boot
+
+API - responsável por receber requisições do Front-end
+	Requisições: qualquer ação dentro do front-end: alterar sacola, excluir produto, criar conta, etc...
+
+Tem 4 métodos principais do HTTP:
+	O front-end faz requisão para a API que por sua vez, busca ou altera os dados no Banco de Dados(Servidor)
+	- GET: busca informações - por exemplo: verificar os dados da conta
+	- POST: inserção de dados - por exemplo: incluir itens na sacola 
+	- PUT: alteração de dados - por exemplo: alteração de dados cadstrais
+	- DELETE: excluir alguma informação - por exemplo: excluir cadastro
+
+Banco de Dados Relacional:
+	Todas as informações são guardads em um DB
+	Relacional: as tabelas de dados se relacionam entre si
+
+Arquitetura de um Aplicação Spring Boot:
+
+
+
+Postman Client <---> Controller <---> Service <---> DAO (repository) <---> DB
+
+Controller: classes que representam a API layer onde possui as URLS de navegação
+Service: Business Logic: lógica da progrmação. Tem as classes que detém o código da aplicação
+DAO (Repository): interfaces que são ponto de acesso ao banco de dados - Persistense Logic
+
+Pasta Model: classes com os modelos reais do projeto
+

@@ -1,0 +1,62 @@
+1) abrir o site spring initalizr:
+	Project: Gradle Project
+	Language: Java
+	Spring Boot: 2.7.4
+	Project Metadata:
+		Group:
+		Artifact:
+		Name:
+		Description:
+		Package name:
+		Packaging: Jar
+		Java: 17
+	Dependências:
+		- Spring Web
+		- Spring Data JPA
+		- Lombok
+		- H2 DataBase
+
+	Clicar em Generate e descompactar o arquivo
+
+2) Abrir o intellij:
+	1) Open: abrir o arquivo desconpactado
+	2) Ir em aplications.properties e refactor name: aplications.yml
+		spring:
+  		h2:
+    			console:
+      			enabled: true
+      			path: /h2-console
+      			console.settings.trace: false
+      			spring.h2.console.settings.web-allow-others: false
+  		datasource:
+    			url: jdbc:h2:mem:testdb
+    			username: sa
+    			password:
+    			driverClassName: org.h2.Driver
+  		jpa:
+    			show-sql: true
+    			defer-datasource-initialization: true
+    			database-platform: org.hibernate.dialect.H2Dialect
+  		mvc:
+    			pathmatch:
+      				matching-strategy: ant_path_matcher
+	
+	3) Rodar a aplicação em Sacola.ApiAplication.java
+	4) abrir o navegador: http://localhost:8080/h2-console
+	5) Preencher com os dados e fazer a concexão com o banco de dados
+	6) Parar a aplicação
+	7) Criar um pacote em me.dio.sacola chamado model:
+		Criar classes:
+			- Cliente
+			- Endereco
+			- Item
+			- Produto
+			- Restaurante
+			- Sacola
+	8) Criar um pacote em me.dio.sacola chamado enumeration:
+		Cria um enum:
+			- FormaPagamento
+
+
+
+
