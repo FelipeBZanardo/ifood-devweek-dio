@@ -74,7 +74,7 @@ public class SacolaServiceImpl implements SacolaService {
                 throw new RuntimeException("Não é possível adiconar produtos de restaurantes diferentes. Feche a sacola ou a esvazie");
         }
 
-        List<Double> valorDosItens = new ArrayList<>();
+        /*List<Double> valorDosItens = new ArrayList<>();
 
         for(Item itemDaSacola : itensDaSacola)
             valorDosItens.add(itemDaSacola.getProduto().getValorUnitario()*itemDaSacola.getQuantidade());
@@ -83,9 +83,51 @@ public class SacolaServiceImpl implements SacolaService {
         for (Double valorCadaItem : valorDosItens)
             valorTotalSacola += valorCadaItem;
 
-        sacola.setValorTotal(valorTotalSacola);
+        sacola.setValorTotal(valorTotalSacola);*/
+
+        atualizaValorTotal(sacola);
         sacolaRepository.save(sacola);
 
         return itemParaSerInserido;
+    }
+
+    @Override
+    public void excluirItemSacola(long itemId) {
+        System.out.println("entrei");
+        Item itemASerExcluido = itemRepository.findById(itemId).orElseThrow(
+                () -> {
+                    throw new RuntimeException("Esse item não existe");
+                });
+
+        Sacola sacola = itemASerExcluido.getSacola();
+
+        List<Item> itensSacola = sacola.getItens();
+
+        for (Item item : itensSacola){
+            if (item.getId().equals(itemId)){
+                itensSacola.remove(item);
+                itemRepository.delete(item);
+                break;
+            }
+        }
+
+
+        sacola.setItens(itensSacola);
+        atualizaValorTotal(sacola);
+        sacolaRepository.save(sacola);
+
+
+    }
+
+    public void atualizaValorTotal (Sacola sacola) {
+        List<Item> itensSacola = sacola.getItens();
+        double valorTotal = 0;
+
+        for (Item item : itensSacola){
+            valorTotal += item.getQuantidade() * item.getProduto().getValorUnitario();
+        }
+
+        sacola.setValorTotal(valorTotal);
+
     }
 }
